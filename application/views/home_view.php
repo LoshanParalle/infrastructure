@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Home Page</title>
+     </head>
+ 
+  <body>
+  <form action ="<?php echo base_url();?>index.php/login" method="POST">
+  <input type="submit" class="btn btn-danger" value="Logout" name="logout" >
+  </form>
+  <br>
+  
+<!--     
+    <button id="showStaff" class="btn btn-primary">Show staff</button>
+    <div id="staff-list"></div>
+    <br>
+    <hr><hr>   
+    <br> 
+ -->
+<!-- Trying out a new layout-->
+<div class="container">
+  <h3>STAFF DETAILS</h3>
+  <div class="alert alert-success" style="display: none;">
+    
+  </div>
+  <button id="btnAdd" class="btn btn-success">Add New</button>
+  <table class="table table-bordered table-responsive" style="margin-top: 20px;">
+    <thead class="thead-inverse">
+      <tr>
+        <td>#</td>
+        <td>Title</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>status</td>
+        <td>gender</td>
+        <td>email</td>
+        <td>Action</td> <!--Here i will add my update and delete buttons -->
+      </tr>
+    </thead>
+    <tbody id="showdata"></tbody>
+  </table>
+</div>
+
+
+<!-- Here il create the adding model-->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+          
+          <form id="myForm" action="" method="post" class="form-horizontal">
+            <input type="hidden" name="txtId" value="0">
+
+             <div class="form-group">
+              <label for="name" class="label-control col-md-4">Title</label>
+              <div class="col-md-8">
+                <input type="text" name="txtStaffTitle" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="name" class="label-control col-md-4">Name</label>
+              <div class="col-md-8">
+                <input type="text" name="txtStaffName" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name" class="label-control col-md-4">Surname</label>
+              <div class="col-md-8">
+                <input type="text" name="txtStaffSurname" class="form-control">
+              </div>
+            </div>
+
+                  <div class="form-group">
+              <label for="name" class="label-control col-md-4">Status</label>
+              <div class="col-md-8">
+                <input type="text" name="txtStaffStatus" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name" class="label-control col-md-4">Gender</label>
+              <div class="col-md-8">
+                <input type="text" name="txtStaffGender" class="form-control">
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="name" class="label-control col-md-4">Email</label>
+              <div class="col-md-8">
+                <input type="text" name="txtStaffEmail" class="form-control">
+              </div>
+            </div>
+
+          </form>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+<!-- ***********************         JAVASCRIPT     ****************************************** -->
+<script type="text/javascript">
+//Put all the J.S actions in one function  
+$(function(){
+
+/***********************************************************************/
+// $("#showStaff").click(function() {
+//     $.ajax({
+//         type: "POST",
+//         url: "<?php //echo site_url('home/show_staff'); ?>",
+//         success: function(data) {
+//             $("#staff-list").html(data);
+//         }
+//     });
+// });
+/*********************************************************************/
+//show all the staff when page loads
+show_all_staff();
+
+    //Modal for Adding a New staff member
+    $('#btnAdd').click(function(){
+      $('#myModal').modal('show');
+      
+      //going to toggle the modal name between add and edit 
+      $('#myModal').find('.modal-title').text('Add New staff member');
+      $('#myForm').attr('action', '<?php echo base_url() ?>index.php/home/add_staff');
+    });
+
+
+
+    $('#btnSave').click(function(){
+      
+      //set the forms action 
+      var url = $('#myForm').attr('action');
+      
+      //set the form elements to a string
+      var data = $('#myForm').serialize(); 
+      
+      //setup the input fields for validation 
+      var title = $('input[name=txtStaffTitle]');
+      var name = $('input[name=txtStaffName]');
+      var surname = $('input[name=txtStaffSurname]');
+      var status = $('input[name=txtStaffStatus]');
+      var gender = $('input[name=txtStaffGender]');
+      //var email = $('input[name=txtStaffEmail]');
+      
+      //create a checker
+      var result = '';
+
+      //check the title for input
+      if(title.val()==''){
+        title.parent().parent().addClass('has-error');
+      }else{
+        title.parent().parent().removeClass('has-error');
+        result +='1';
+      }
+
+      //check the name for input
+      if(name.val()==''){
+        name.parent().parent().addClass('has-error');
+      }else{
+        name.parent().parent().removeClass('has-error');
+        result +='2';
+      }
+      
+      //check the surname for input
+      if(surname.val()==''){
+        surname.parent().parent().addClass('has-error');
+      }else{
+        surname.parent().parent().removeClass('has-error');
+        result +='3';
+      }
+
+     //check the status for input
+      if(status.val()==''){
+        status.parent().parent().addClass('has-error');
+      }else{
+        status.parent().parent().removeClass('has-error');
+        result +='4';
+      }
+
+      //check the gender for input
+      if(gender.val()==''){
+        gender.parent().parent().addClass('has-error');
+      }else{
+        gender.parent().parent().removeClass('has-error');
+        result +='5';
+      }     
+ 
+       //check the email for input
+      if(email.val()==''){
+        email.parent().parent().addClass('has-error');
+      }else{
+        email.parent().parent().removeClass('has-error');
+        result +='6';
+      } 
+      
+
+      //setup alerts for success or failure upon inputs
+      if(result=='123456'){
+        $.ajax({
+          type: 'ajax',
+          method: 'post',
+          url: url,
+          data: data,
+          async: false,
+          dataType: 'json',
+          success: function(response){
+            if(response.success){
+              $('#myModal').modal('hide');
+              $('#myForm')[0].reset();
+              if(response.type=='add'){
+                var type = 'added'
+              }else if(response.type=='update'){
+                var type ="updated"
+              }
+             // $('.alert-success').html('Employee '+type+' successfully').fadeIn().delay(4000).fadeOut('slow');
+              show_all_staff();
+            }
+
+            else{
+              alert('Error');
+            }
+          },
+          error: function(){
+            alert('Could not add data');
+          }
+        });
+      }
+
+  });
+
+
+  //function for displaying the data
+    function show_all_staff(){
+      $.ajax({
+        type: 'ajax',
+        url: '<?php echo base_url() ?>index.php/home/show_all_staff',
+        async: false,
+        dataType: 'json',
+          success: function(data){
+          var html = '';
+          var i;
+          
+          for(i=0; i<data.length; i++){
+          
+          html +='<tr>'+
+                  '<td>'+data[i].id+'</td>'+
+                  '<td>'+data[i].title+'</td>'+
+                  '<td>'+data[i].firstname+'</td>'+
+                  '<td>'+data[i].surname+'</td>'+
+                  '<td>'+data[i].status+'</td>'+
+                  '<td>'+data[i].gender+'</td>'+
+                  '<td>'+data[i].email_address+'</td>'+
+                  '<td>'+
+                    '<a href="javascript:;" class="btn btn-info item-edit" data="'+data[i].id+'">Edit</a>&nbsp;'+
+                    '<a href="javascript:;" class="btn btn-danger item-delete" data="'+data[i].id+'">Delete</a>'+
+                  '</td>'+
+                  '</tr>';
+          }
+          
+          $('#showdata').html(html);
+        },
+        error: function(){
+          alert('Could not get Data from Database');
+        }
+      });
+    }
+
+});
+</script>
+ </body>
+</html>
