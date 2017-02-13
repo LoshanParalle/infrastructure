@@ -32,12 +32,7 @@ class Home_model extends CI_Model {
 		'status'=>$this->input->post('txtStaffStatus'),
 		'gender'=>$this->input->post('txtStaffGender')
 		);
-		$email_field = array
-		(
-			'email_address'=>$this->input->post('txtStaffEmail')
-		);
-		//$this->db->insert('opscomp.staff', $staff_field);
-		$this->db->insert('opscomp.emails', $email_field);
+		$this->db->insert('opscomp.staff', $staff_field);
 		if($this->db->affected_rows() > 0)
 		{
 			return true;

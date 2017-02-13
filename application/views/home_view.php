@@ -92,12 +92,12 @@
               </div>
             </div>
           
-            <div class="form-group">
+            <!--div class="form-group">
               <label for="name" class="label-control col-md-4">Email</label>
               <div class="col-md-8">
                 <input type="text" name="txtStaffEmail" class="form-control">
               </div>
-            </div>
+            </div-->
 
           </form>
     
@@ -204,16 +204,16 @@ show_all_staff();
       }     
  
        //check the email for input
-      if(email.val()==''){
-        email.parent().parent().addClass('has-error');
-      }else{
-        email.parent().parent().removeClass('has-error');
-        result +='6';
-      } 
+      // if(email.val()==''){
+      //   email.parent().parent().addClass('has-error');
+      // }else{
+      //   email.parent().parent().removeClass('has-error');
+      //   result +='6';
+      // } 
       
 
       //setup alerts for success or failure upon inputs
-      if(result=='123456'){
+      if(result=='12345'){
         $.ajax({
           type: 'ajax',
           method: 'post',
@@ -230,7 +230,7 @@ show_all_staff();
               }else if(response.type=='update'){
                 var type ="updated"
               }
-             // $('.alert-success').html('Employee '+type+' successfully').fadeIn().delay(4000).fadeOut('slow');
+              $('.alert-success').html('Employee '+type+' successfully').fadeIn().delay(4000).fadeOut('slow');
               show_all_staff();
             }
 
