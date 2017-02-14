@@ -264,8 +264,6 @@ show_all_staff();
     });
 
 
-
-
   //function for displaying the data
     function show_all_staff(){
       $.ajax({
@@ -301,16 +299,6 @@ show_all_staff();
         }
       });
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
