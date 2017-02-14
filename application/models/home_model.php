@@ -43,6 +43,37 @@ class Home_model extends CI_Model {
 		}
 	}
 	
+		public function edit_staff(){
+		$id = $this->input->get('id');
+		$this->db->where('id', $id);
+		$query = $this->db->get('opscomp.staff');
+		if($query->num_rows() > 0){
+			return $query->row();
+		}else{
+			return false;
+		}
+	}
+
+
+		public function update_staff(){
+		$id = $this->input->post('txtId');
+		$field = array(
+		'title'=>$this->input->post('txtStaffTitle'),
+		'firstname'=>$this->input->post('txtStaffName'),
+		'surname'=>$this->input->post('txtStaffSurname'),
+		'status'=>$this->input->post('txtStaffStatus'),
+		'gender'=>$this->input->post('txtStaffGender')
+		);
+		$this->db->where('id', $id);
+		$this->db->update('opscomp.staff', $field);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 
 	public function edit_user($data, $id) 
 	{	

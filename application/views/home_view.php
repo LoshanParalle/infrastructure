@@ -119,17 +119,6 @@
 //Put all the J.S actions in one function  
 $(function(){
 
-/***********************************************************************/
-// $("#showStaff").click(function() {
-//     $.ajax({
-//         type: "POST",
-//         url: "<?php //echo site_url('home/show_staff'); ?>",
-//         success: function(data) {
-//             $("#staff-list").html(data);
-//         }
-//     });
-// });
-/*********************************************************************/
 //show all the staff when page loads
 show_all_staff();
 
@@ -247,6 +236,36 @@ show_all_staff();
   });
 
 
+    //edit
+    $('#showdata').on('click', '.item-edit', function(){
+      var id = $(this).attr('data');
+      $('#myModal').modal('show');
+      $('#myModal').find('.modal-title').text('Edit Employee');
+      $('#myForm').attr('action', '<?php echo base_url() ?>index.php/home/update_staff');
+      $.ajax({
+        type: 'ajax',
+        method: 'get',
+        url: '<?php echo base_url() ?>index.php/home/edit_staff',
+        data: {id: id},
+        async: false,
+        dataType: 'json',
+        success: function(data){
+          $('input[name=txtStaffTitle]').val(data.title);
+          $('input[name=txtStaffName]').val(data.firstname);
+          $('input[name=txtStaffSurname]').val(data.surname);
+          $('input[name=txtStaffStatus]').val(data.status);
+          $('input[name=txtStaffGender]').val(data.gender);
+          $('input[name=txtId]').val(data.id);
+        },
+        error: function(){
+          alert('Could not Edit Data');
+        }
+      });
+    });
+
+
+
+
   //function for displaying the data
     function show_all_staff(){
       $.ajax({
@@ -283,6 +302,34 @@ show_all_staff();
       });
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***********************************************************************/
+// $("#showStaff").click(function() {
+//     $.ajax({
+//         type: "POST",
+//         url: "<?php //echo site_url('home/show_staff'); ?>",
+//         success: function(data) {
+//             $("#staff-list").html(data);
+//         }
+//     });
+// });
+/*********************************************************************/
 });
 </script>
  </body>

@@ -62,7 +62,7 @@
     //Add Employee
     public function add_staff()
     {
-		$result = $this->h->add_staff();
+		$result = $this->h->add_staff();				
 		$msg['success'] = false;
 		$msg['type'] = 'add';
 		if($result){
@@ -70,6 +70,22 @@
 		}
 		echo json_encode($msg);
 	}
+
+	public function edit_staff(){
+		$result = $this->m->editEmployee();
+		echo json_encode($result);
+	}
+
+	public function update_staff(){
+		$result = $this->m->updateEmployee();
+		$msg['success'] = false;
+		$msg['type'] = 'update';
+		if($result){
+			$msg['success'] = true;
+		}
+		echo json_encode($msg);
+	}
+
 
     //logout of the home page and direct to the login page
  	public function logout()
