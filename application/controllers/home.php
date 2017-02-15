@@ -58,7 +58,6 @@
 		echo json_encode($result);
 	}
 
-    
     //Add Employee
     public function add_staff()
     {
