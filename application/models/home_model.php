@@ -1,19 +1,24 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home_model extends CI_Model {
 
+	//Read Staff
 	public function show_all_staff()
 	{
+
 		//Get the staff data
-        $sql = "select s.id, s.title, s.firstname, s.surname, s.status, s.gender,e.email_address
+       /* $sql = "select s.id, s.title, s.firstname, s.surname, s.status, s.gender,e.email_address
 			from opscomp.staff s
 			join opscomp.emails e
 			on  s.emails_id = e.id
 			where status = 'active'
-			order by s.id";
+			order by e.id";
         
         $query = $this->db->query($sql);
-
+		*/
+		$this->db->order_by('id');
+		$query = $this->db->get('opscomp.staff');
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}else{
@@ -21,7 +26,7 @@ class Home_model extends CI_Model {
 		}
 	}
 
-	// add a staff member
+	// Write Staff
 	public function add_staff($data) 
 	{	
 		$staff_field = array
@@ -43,7 +48,9 @@ class Home_model extends CI_Model {
 		}
 	}
 	
-		public function edit_staff(){
+	//Update
+	function edit_staff()
+	{
 		$id = $this->input->get('id');
 		$this->db->where('id', $id);
 		$query = $this->db->get('opscomp.staff');
@@ -54,7 +61,7 @@ class Home_model extends CI_Model {
 		}
 	}
 
-
+	//update
 		public function update_staff(){
 		$id = $this->input->post('txtId');
 		$field = array(
@@ -73,24 +80,16 @@ class Home_model extends CI_Model {
 		}
 	}
 
-
-
-	public function edit_user($data, $id) 
-	{	
-
-		//ci default insert method
-		$this->db->where(['id' => $id]);
-		$this->db->update('opscomp.users', $data);
-	}
-	
-
-
-	public function delete_user($id) 
-	{	
-
-		//ci default insert method
-		$this->db->where(['id' => $id]); 
-		$this->db->delete('opscomp.users');
+	//delete
+	public function deleteEmployee(){
+		$id = $this->input->get('id');
+		$this->db->where('id', $id);
+		$this->db->delete('opscomp.staff');
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }

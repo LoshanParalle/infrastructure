@@ -147,7 +147,7 @@ show_all_staff();
       var surname = $('input[name=txtStaffSurname]');
       var status = $('input[name=txtStaffStatus]');
       var gender = $('input[name=txtStaffGender]');
-      //var email = $('input[name=txtStaffEmail]');
+      var email = $('input[name=txtStaffEmail]');
       
       //create a checker
       var result = '';
@@ -256,6 +256,7 @@ show_all_staff();
           $('input[name=txtStaffStatus]').val(data.status);
           $('input[name=txtStaffGender]').val(data.gender);
           $('input[name=txtId]').val(data.id);
+          $('input[')
         },
         error: function(){
           alert('Could not Edit Data');
