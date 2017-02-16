@@ -13,6 +13,7 @@ class Home_model extends CI_Model {
 			join opscomp.emails e
 			on  s.emails_id = e.id
 			where status = 'active'
+
 			order by e.id";
         
         $query = $this->db->query($sql);

@@ -235,7 +235,7 @@ show_all_staff();
                 var type ="updated"
               }
               $('.alert-success').html('Employee '+type+' successfully').fadeIn().delay(4000).fadeOut('slow');
-              //show_all_staff();
+              show_all_staff();
             }
 
             else{
@@ -279,7 +279,7 @@ show_all_staff();
     });
 
 
- //Delete the data
+    //Delete the data
     $('#showdata').on('click', '.item-delete', function(){
       var id = $(this).attr('data');
       $('#deleteModal').modal('show');
@@ -296,7 +296,7 @@ show_all_staff();
             if(response.success){
               $('#deleteModal').modal('hide');
               $('.alert-success').html('Employee Deleted successfully').fadeIn().delay(4000).fadeOut('slow');
-             // show_all_staff();
+              show_all_staff();
             }else{
               alert('Error');
             }
