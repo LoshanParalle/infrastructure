@@ -12,9 +12,8 @@
 	}
 	
 	//display the home page
-	public function index()
+	function index()
 	{
-		
 		$this->load->view('layout/header');
 		$this->load->view('home_view');
 		$this->load->view('layout/footer');
@@ -40,12 +39,12 @@
 	}
 
 	public function edit_staff(){
-		$result = $this->m->editEmployee();
+		$result = $this->h->edit_staff();
 		echo json_encode($result);
 	}
 
 	public function update_staff(){
-		$result = $this->m->updateEmployee();
+		$result = $this->h->update_staff();
 		$msg['success'] = false;
 		$msg['type'] = 'update';
 		if($result){
@@ -54,6 +53,16 @@
 		echo json_encode($msg);
 	}
 
+
+	//delete a staff member
+	public function delete_staff(){
+		$result = $this->h->delete_staff();
+		$msg['success'] = false;
+		if($result){
+			$msg['success'] = true;
+		}
+		echo json_encode($msg);
+	}
 
     //logout of the home page and direct to the login page
  	public function logout()

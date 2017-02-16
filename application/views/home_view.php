@@ -19,6 +19,7 @@
     <hr><hr>   
     <br> 
  -->
+ 
 <!-- Trying out a new layout-->
 <div class="container">
   <h3>STAFF DETAILS</h3>
@@ -110,8 +111,23 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
-
+<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm Delete</h4>
+      </div>
+      <div class="modal-body">
+          Do you want to delete this record?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <!-- ***********************         JAVASCRIPT     ****************************************** -->
@@ -133,7 +149,7 @@ show_all_staff();
 
 
 
-    $('#btnSave').click(function(){
+      $('#btnSave').click(function(){
       
       //set the forms action 
       var url = $('#myForm').attr('action');
@@ -200,7 +216,6 @@ show_all_staff();
       //   result +='6';
       // } 
       
-
       //setup alerts for success or failure upon inputs
       if(result=='12345'){
         $.ajax({
@@ -220,7 +235,7 @@ show_all_staff();
                 var type ="updated"
               }
               $('.alert-success').html('Employee '+type+' successfully').fadeIn().delay(4000).fadeOut('slow');
-              show_all_staff();
+              //show_all_staff();
             }
 
             else{
@@ -234,7 +249,6 @@ show_all_staff();
       }
 
   });
-
 
     //edit
     $('#showdata').on('click', '.item-edit', function(){
@@ -256,11 +270,41 @@ show_all_staff();
           $('input[name=txtStaffStatus]').val(data.status);
           $('input[name=txtStaffGender]').val(data.gender);
           $('input[name=txtId]').val(data.id);
-          $('input[')
+         // $('input[')
         },
         error: function(){
           alert('Could not Edit Data');
         }
+      });
+    });
+
+
+ //Delete the data
+    $('#showdata').on('click', '.item-delete', function(){
+      var id = $(this).attr('data');
+      $('#deleteModal').modal('show');
+      //prevent previous handler - unbind()
+      $('#btnDelete').unbind().click(function(){
+        $.ajax({
+          type: 'ajax',
+          method: 'get',
+          async: false,
+          url: '<?php echo base_url() ?>index.php/home/delete_staff',
+          data:{id:id},
+          dataType: 'json',
+          success: function(response){
+            if(response.success){
+              $('#deleteModal').modal('hide');
+              $('.alert-success').html('Employee Deleted successfully').fadeIn().delay(4000).fadeOut('slow');
+             // show_all_staff();
+            }else{
+              alert('Error');
+            }
+          },
+          error: function(){
+            alert('Error deleting');
+          }
+        });
       });
     });
 
@@ -300,11 +344,6 @@ show_all_staff();
         }
       });
     }
-
-
-
-
-
 
 
 

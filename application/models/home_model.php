@@ -81,7 +81,7 @@ class Home_model extends CI_Model {
 	}
 
 	//delete
-	public function deleteEmployee(){
+	public function delete_staff(){
 		$id = $this->input->get('id');
 		$this->db->where('id', $id);
 		$this->db->delete('opscomp.staff');
