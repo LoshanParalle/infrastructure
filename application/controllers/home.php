@@ -7,7 +7,6 @@
 		//load the model inside constructor
 		$this->load->model('home_model', 'h');
 		$this->load->helper('url');
-		$this->load->library('user_agent');
 
 	}
 	
