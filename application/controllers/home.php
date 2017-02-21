@@ -19,6 +19,7 @@
 
 	}
 
+
     //display all the staff
     public function show_all_staff(){
 		$result = $this->h->show_all_staff();
@@ -70,8 +71,15 @@
  		$this->load->view('login_view');
  	}
 
+ 	
+ 	public function tables(){
+ 	$fields = $this->db->list_fields('staff');
 
-
+	foreach ($fields as $field)
+		{
+    	    echo $field . "<br>";
+		}
+	}
 
 //generate the staff for the home page
  	/*public function show_staff()

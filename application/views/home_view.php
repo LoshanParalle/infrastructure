@@ -1,35 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Home Page</title>
-     </head>
- 
-  <body>
+<!-- Trying out a new layout-->
+<div class="container">
+
   <form action ="<?php echo base_url();?>index.php/login" method="POST">
   <input type="submit" class="btn btn-danger" value="Logout" name="logout" >
   </form>
   <br>
-  
-<!--     
-    <button id="showStaff" class="btn btn-primary">Show staff</button>
-    <div id="staff-list"></div>
-    <br>
-    <hr><hr>   
-    <br> 
- -->
- 
-<!-- Trying out a new layout-->
-<div class="container">
+
   <h3>STAFF DETAILS</h3>
   <div class="alert alert-success" style="display: none;">
     
   </div>
   <button id="btnAdd" class="btn btn-success">Add New</button>
   <table class="table table-bordered table-responsive" style="margin-top: 20px;">
-    <thead class="thead-inverse">
-      <tr>
+    <thead>
+    <tr>
         <td>#</td>
         <td>Title</td>
         <td>First Name</td>
@@ -40,7 +24,9 @@
         <td>Action</td> <!--Here i will add my update and delete buttons -->
       </tr>
     </thead>
-    <tbody id="showdata"></tbody>
+    <tbody id="showdata">
+      
+    </tbody>
   </table>
 </div>
 
@@ -54,8 +40,7 @@
         <h4 class="modal-title">Modal title</h4>
       </div>
       <div class="modal-body">
-          
-          <form id="myForm" action="" method="post" class="form-horizontal">
+                 <form id="myForm" action="" method="post" class="form-horizontal">
             <input type="hidden" name="txtId" value="0">
 
              <div class="form-group">
@@ -101,7 +86,6 @@
             </div-->
 
           </form>
-    
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -110,6 +94,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
 
 <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -123,7 +109,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
+        <button type="button" id="btnDelete" class="btn btn-danger " >Delete</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -163,7 +149,7 @@ show_all_staff();
       var surname = $('input[name=txtStaffSurname]');
       var status = $('input[name=txtStaffStatus]');
       var gender = $('input[name=txtStaffGender]');
-      var email = $('input[name=txtStaffEmail]');
+      //var email = $('input[name=txtStaffEmail]');
       
       //create a checker
       var result = '';
@@ -229,15 +215,21 @@ show_all_staff();
             if(response.success){
               $('#myModal').modal('hide');
               $('#myForm')[0].reset();
-              if(response.type=='add'){
-                var type = 'added'
-              }else if(response.type=='update'){
-                var type ="updated"
-              }
-              $('.alert-success').html('Employee '+type+' successfully').fadeIn().delay(4000).fadeOut('slow');
+              
+
+              // if(response.type=='add'){
+              //   var type = "added";
+              // }
+
+              // else if(response.type=='update'){
+              //   var type ="updated";
+              // }
+              
+              $('.alert-success').html('Employee added successfully').fadeIn().delay(4000).fadeOut('slow');
               show_all_staff();
             }
 
+            
             else{
               alert('Error');
             }
@@ -249,6 +241,7 @@ show_all_staff();
       }
 
   });
+      
 
     //edit
     $('#showdata').on('click', '.item-edit', function(){
@@ -332,7 +325,7 @@ show_all_staff();
                   '<td>'+data[i].email_address+'</td>'+
                   '<td>'+
                     '<a href="javascript:;" class="btn btn-info item-edit" data="'+data[i].id+'">Edit</a>&nbsp;'+
-                    '<a href="javascript:;" class="btn btn-danger item-delete" data="'+data[i].id+'">Delete</a>'+
+                    '<a href="javascript:;" class="btn btn-danger item-delete"  data="'+data[i].id+'">Delete</a>'+
                   '</td>'+
                   '</tr>';
           }
@@ -345,20 +338,6 @@ show_all_staff();
       });
     }
 
-
-
-/***********************************************************************/
-// $("#showStaff").click(function() {
-//     $.ajax({
-//         type: "POST",
-//         url: "<?php //echo site_url('home/show_staff'); ?>",
-//         success: function(data) {
-//             $("#staff-list").html(data);
-//         }
-//     });
-// });
-/*********************************************************************/
 });
 </script>
- </body>
-</html>
+

@@ -35,4 +35,3 @@ $this->benchmark->mark('code_start');
 		<h2><span class="glyphicon glyphicon-home"></span>&nbsp;IG Management System</h2>
 	</div>
 </div>
-<div class="container">
