@@ -9,8 +9,6 @@
 
 $this->benchmark->mark('code_end');
 
-$this->load->library('user_agent');
-
 echo "Total Execution Time : " . $this->benchmark->elapsed_time('code_start', 'code_end');
 echo "<br>";
 echo "Memory Usage : " . $this->benchmark->memory_usage();

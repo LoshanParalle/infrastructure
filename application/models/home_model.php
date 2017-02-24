@@ -12,12 +12,16 @@ class Home_model extends CI_Model {
 			from opscomp.staff s
 			join opscomp.emails e
 			on  s.emails_id = e.id
-			where status = 'active'
+			--where status = 'active'
 
-			order by e.id";
+			order by s.id";
         
         $query = $this->db->query($sql);
-		*/
+		if($query->num_rows() > 0){
+		return $query->result_array();
+		}else{
+			echo "there is no data";
+		} */
 		$this->db->order_by('id');
 		$query = $this->db->get('opscomp.staff');
 		if($query->num_rows() > 0){
@@ -27,7 +31,12 @@ class Home_model extends CI_Model {
 		}
 	}
 
-	// Write Staff
+	public function get_latest_id(){
+    $sql=$this->db->query("SELECT MAX(id) as id FROM opscomp.staff");
+    return $sql->result();
+		} 
+
+	// Insert into Staff
 	public function add_staff($data) 
 	{	
 		$staff_field = array
@@ -39,14 +48,12 @@ class Home_model extends CI_Model {
 		'gender'=>$this->input->post('txtStaffGender')
 		);
 		$this->db->insert('opscomp.staff', $staff_field);
-		if($this->db->affected_rows() > 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+	}
+
+	
+	public function invoice()
+	{
+		$this->db->query("generate_invoice_xml");
 	}
 	
 	//Update

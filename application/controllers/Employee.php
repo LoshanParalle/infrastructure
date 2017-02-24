@@ -9,7 +9,7 @@ Class Employee extends CI_Controller{
 
 	function index(){
 		$this->load->view('layout/header');
-		$this->load->view('employee/index');
+		$this->load->view('employee_view');
 		$this->load->view('layout/footer');
 	}
 
