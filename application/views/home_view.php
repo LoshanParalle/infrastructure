@@ -87,6 +87,14 @@
                 <option value="f">Female</option>
                 </select>
 
+            <div class="form-group">
+              <label for="name" class="label-control col-md-4">Department</label>
+              <div class="col-md-8">
+                <select class="selectpicker form-control" name="txtStaffDepartment">
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+                </select>
+
               </div>
             </div>
           
@@ -106,7 +114,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 
 <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
@@ -204,7 +211,7 @@ show_all_staff();
         result +='5';
       }     
  
-       //check the email for input
+      //check the email for input
       // if(email.val()==''){
       //   email.parent().parent().addClass('has-error');
       // }else{
@@ -231,7 +238,8 @@ show_all_staff();
               else if(response.type=='update'){
                 var type ="updated";
               }
-              $('.alert-success').html('Employee added successfully').fadeIn().delay(4000).fadeOut('slow');
+              $('.alert-success').html('Employee ' + type + ' successfully').fadeIn().delay(3000).fadeOut('slow');
+              
               show_all_staff();
             }
             else{
@@ -244,7 +252,7 @@ show_all_staff();
         });
       }
   });
-      
+    
     //edit
     $('#showdata').on('click', '.item-edit', function(){
       var id = $(this).attr('data');
@@ -338,7 +346,5 @@ show_all_staff();
         }
       });
     }
-
 });
 </script>
-

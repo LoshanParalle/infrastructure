@@ -85,31 +85,4 @@
 	echo json_encode($result);
 	}
  	
-
-//generate the staff for the home page
- 	/*public function show_staff()
-    {
-        // load table library
-        $this->load->library('table');
-        
-        // set heading
-        $this->table->set_heading('#','Title', 'First Name', 'Last Name', 'status', 'gender', 'email');
-
-        // set template
-        $style = array('table_open'  => '<table class="table table-striped table-hover">');
-        $this->table->set_template($style);
-
-        
-        //Get the staff data
-        $sql = "select s.id, s.title, s.firstname, s.surname, s.status, s.gender,e.email_address
-			from opscomp.staff s
-			join opscomp.emails e
-			on  s.emails_id = e.id
-			where status = 'active'
-			order by s.id";
-        
-        $query = $this->db->query($sql);
-        echo $this->table->generate($query);
-    }
-	*/
  };

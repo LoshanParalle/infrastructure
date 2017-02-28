@@ -32,7 +32,7 @@ $this->benchmark->mark('code_start');
 
 <div class="navbar navbar-default">
 	<div class="container">
-		<h2><span class="glyphicon glyphicon-home"></span>&nbsp;IG Management System</h2>
+		<h2><a href="<?php echo base_url() ?>index.php/home/"><span class="glyphicon glyphicon-home"></span></a>&nbsp;IG Management System</h2>
 		  <form action ="<?php echo base_url();?>index.php/login" method="POST" class="navbar-form navbar-left">
   <input type="submit" class="btn btn-danger" value="Logout" name="logout">
   </form>
