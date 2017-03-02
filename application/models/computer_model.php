@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Email_model extends CI_Model {
+class Computer_model extends CI_Model {
 
 	//Read Staff
-	public function show_all_emails()
+	public function show_all_computers()
 	{
 		$this->db->order_by('id');
-		$query = $this->db->get('opscomp.emails');
+		$query = $this->db->get('opscomp.computers');
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}else{
@@ -16,14 +16,16 @@ class Email_model extends CI_Model {
 	}
 
 	// Insert into Staff
-	public function add_email() 
+	public function add_computer() 
 	{	
-		$email_field = array
+		$computer_field = array
 		(
-		'email_address'=>$this->input->post('txtEmail'),
-		'password'=>$this->input->post('txtEmailPassword')
+		'computer_name'=>$this->input->post('txtComputer'),
+		'computer_type'=>$this->input->post('txtComputerType'),
+		'os_version'=>$this->input->post('txtComputerOS'),
+		'staff_id'=>$this->input->post('txtComputerOwner')
 		);
-		$this->db->insert('opscomp.emails', $email_field);
+		$this->db->insert('opscomp.computers', $computer_field);
 
 		if($this->db->affected_rows() > 0)
 		{
@@ -36,11 +38,11 @@ class Email_model extends CI_Model {
 	}
 
 	//Update
-	function edit_email()
+	function edit_computer()
 	{
 		$id = $this->input->get('id');
 		$this->db->where('id', $id);
-		$query = $this->db->get('opscomp.emails');
+		$query = $this->db->get('opscomp.computers');
 		if($query->num_rows() > 0){
 			return $query->row();
 		}else{
@@ -49,14 +51,16 @@ class Email_model extends CI_Model {
 	}
 
 	//update
-		public function update_email(){
+		public function update_computer(){
 		$id = $this->input->post('txtId');
 		$field = array(
-		'email'=>$this->input->post('txtEmail'),
-		'password'=>$this->input->post('txtEmailPassword')	
+		'computer_name'=>$this->input->post('txtComputer'),
+		'computer_type'=>$this->input->post('txtComputerType'),
+		'os_version'=>$this->input->post('txtComputerOS'),
+		'staff_id'=>$this->input->post('txtComputerOwner')
 		);
 		$this->db->where('id', $id);
-		$this->db->update('opscomp.emails', $field);
+		$this->db->update('opscomp.computers', $field);
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{
@@ -65,24 +69,14 @@ class Email_model extends CI_Model {
 	}
 
 	//delete
-	public function delete_email(){
+	public function delete_computer(){
 		$id = $this->input->get('id');
 		$this->db->where('id', $id);
-		$this->db->delete('opscomp.emails');
+		$this->db->delete('opscomp.computers');
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{
 			return false;
-		}
-	}
-
-
-	public function get_staff()
-	{	$this->db->order_by('firstname');
-		$query = $this->db->get('opscomp.staff');
-		if($query->num_rows() > 0)
-		{
-			 return $query->result();
 		}
 	}
 	

@@ -1,5 +1,5 @@
 
-  <h3>DEPARTMENTS</h3>
+<h3>COMPUTERS</h3>
   <div class="alert alert-success" style="display: none;">
     
   </div>
@@ -8,9 +8,10 @@
     <thead>
     <tr>
         <td>#</td>
-        <td>Department</td>
-        <td>Head</td>
-        <td>Description</td>
+        <td>Computer</td>
+        <td>Type</td>
+        <td>OS</td>
+        <td>Owner</td>
         <td>Action</td> <!--Here i will add my update and delete buttons -->
       </tr>
     </thead>
@@ -34,23 +35,30 @@
             <input type="hidden" name="txtId" value="0">
 
              <div class="form-group">
-              <label for="name" class="label-control col-md-4">Department</label>
+              <label for="name" class="label-control col-md-4">Computer</label>
               <div class="col-md-8">
-                <input type="text" name="txtDepartment" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="name" class="label-control col-md-4">Head</label>
-              <div class="col-md-8">
-                <input type="text" name="txtDepartmentHead" class="form-control">
+                <input type="text" name="txtComputer" class="form-control">
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="name" class="label-control col-md-4">Description</label>
+               <div class="form-group">
+              <label for="name" class="label-control col-md-4">Type</label>
               <div class="col-md-8">
-                <input type="text" name="txtDepartmentDescription" class="form-control">
+                <input type="text" name="txtComputerType" class="form-control">
+              </div>
+            </div>
+
+               <div class="form-group">
+              <label for="name" class="label-control col-md-4">OS</label>
+              <div class="col-md-8">
+                <input type="text" name="txtComputerOS" class="form-control">
+              </div>
+            </div>
+
+               <div class="form-group">
+              <label for="name" class="label-control col-md-4">Owner</label>
+              <div class="col-md-8">
+                <input type="text" name="txtComputerOwner" class="form-control">
               </div>
             </div>
 
@@ -72,7 +80,7 @@
         <h4 class="modal-title">Confirm Delete</h4>
       </div>
       <div class="modal-body">
-          Do you want to delete this department?
+          Do you want to delete this Computer?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -88,16 +96,16 @@
 //Put all the J.S actions in one function  
 $(function(){
 
-//show all the staff when page loads
-show_all_departments();
+//show all the computers when page loads
+show_all_computers();
 
     //Modal for Adding a New staff member
     $('#btnAdd').click(function(){
       $('#myModal').modal('show');
       
       //going to toggle the modal name between add and edit 
-      $('#myModal').find('.modal-title').text('Add New Department');
-      $('#myForm').attr('action', '<?php echo base_url() ?>index.php/department/add_department');
+      $('#myModal').find('.modal-title').text('Add New Email');
+      $('#myForm').attr('action', '<?php echo base_url() ?>index.php/computers/add_computer');
     });
 
       $('#btnSave').click(function(){
@@ -109,38 +117,50 @@ show_all_departments();
       var data = $('#myForm').serialize(); 
       
       //setup the input fields for validation 
-      var department = $('input[name=txtDepartment]');
-      var head = $('input[name=txtDepartmentHead]');
-      var Description = $('input[name=txtDepartmentDescription]');
+      var computer = $('input[name=txtComputer]');
+      var type = $('input[name=txtComputerType]');
+      var os = $('input[name=txtComputerOS]');
+      var owner = $('input[name=txtComputerOwner]');
+      
       //create a checker
       var result = '';
 
       //check the title for input
-      if(department.val()==''){
-        department.parent().parent().addClass('has-error');
+      if(computer.val()==''){
+        computer.parent().parent().addClass('has-error');
       }else{
-        department.parent().parent().removeClass('has-error');
+        computer.parent().parent().removeClass('has-error');
         result +='1';
       }
 
       //check the name for input
-      if(head.val()==''){
-        head.parent().parent().addClass('has-error');
+      if(type.val()==''){
+        type.parent().parent().addClass('has-error');
       }else{
-        head.parent().parent().removeClass('has-error');
+        type.parent().parent().removeClass('has-error');
         result +='2';
       }
-      
-      //check the name for input
-      if(Description.val()==''){
-        Description.parent().parent().addClass('has-error');
+
+        //check the name for input
+      if(os.val()==''){
+        os.parent().parent().addClass('has-error');
       }else{
-        Description.parent().parent().removeClass('has-error');
+        os.parent().parent().removeClass('has-error');
         result +='3';
       }
 
+        //check the name for input
+      if(owner.val()==''){
+        owner.parent().parent().addClass('has-error');
+      }else{
+        owner.parent().parent().removeClass('has-error');
+        result +='4';
+      }
+
+
+      
       //setup alerts for success or failure upon inputs
-      if(result=='123'){
+      if(result=='1234'){
         $.ajax({
           type: 'ajax',
           method: 'post',
@@ -158,8 +178,8 @@ show_all_departments();
               else if(response.type=='update'){
                 var type ="updated";
               }
-              $('.alert-success').html('Department added successfully').fadeIn().delay(4000).fadeOut('slow');
-              show_all_departments();
+              $('.alert-success').html('computer added successfully').fadeIn().delay(4000).fadeOut('slow');
+              show_all_staff();
             }
             else{
               alert('Error');
@@ -177,18 +197,20 @@ show_all_departments();
       var id = $(this).attr('data');
       $('#myModal').modal('show');
       $('#myModal').find('.modal-title').text('Edit Email');
-      $('#myForm').attr('action', '<?php echo base_url() ?>index.php/department/update_department');
+      $('#myForm').attr('action', '<?php echo base_url() ?>index.php/computers/update_computer');
       $.ajax({
         type: 'ajax',
         method: 'get',
-        url: '<?php echo base_url() ?>index.php/department/edit_department',
+        url: '<?php echo base_url() ?>index.php/computers/edit_computer',
         data: {id: id},
         async: false,
         dataType: 'json',
         success: function(data){
-          $('input[name=txtDepartment]').val(data.name);
-          $('input[name=txtDepartmentHead]').val(data.department_head);
-          $('input[name=txtDepartmentDescription]').val(data.description);
+          $('input[name=txtComputer]').val(data.computer_name);
+          $('input[name=txtComputerType]').val(data.computer_type);
+          $('input[name=txtComputerOS]').val(data.os_version);
+          $('input[name=txtComputerOwner]').val(data.staff_id);
+          $('input[name=txtId]').val(data.id);
         },
         error: function(){
           alert('Could not Edit Data');
@@ -207,14 +229,14 @@ show_all_departments();
           type: 'ajax',
           method: 'get',
           async: false,
-          url: '<?php echo base_url() ?>index.php/emails/delete_department',
+          url: '<?php echo base_url() ?>index.php/computers/delete_computer',
           data:{id:id},
           dataType: 'json',
           success: function(response){
             if(response.success){
               $('#deleteModal').modal('hide');
-              $('.alert-success').html('Department Deleted successfully').fadeIn().delay(4000).fadeOut('slow');
-              show_all_departments();
+              $('.alert-success').html('Computer Deleted successfully').fadeIn().delay(4000).fadeOut('slow');
+              show_all_emails();
             }else{
               alert('Error');
             }
@@ -228,10 +250,10 @@ show_all_departments();
 
 
   //function for displaying the data
-    function show_all_departments(){
+    function show_all_computers(){
       $.ajax({
         type: 'ajax',
-        url: '<?php echo base_url() ?>index.php/department/show_all_departments',
+        url: '<?php echo base_url() ?>index.php/computers/show_all_computers',
         async: false,
         dataType: 'json',
           success: function(data){
@@ -242,9 +264,10 @@ show_all_departments();
           
           html +='<tr>'+
                   '<td>'+data[i].id+'</td>'+
-                  '<td>'+data[i].name+'</td>'+
-                  '<td>'+data[i].department_head+'</td>'+
-                  '<td>'+data[i].description+'</td>'+
+                  '<td>'+data[i].computer_name+'</td>'+
+                  '<td>'+data[i].computer_type+'</td>'+
+                  '<td>'+data[i].os_version+'</td>'+
+                  '<td>'+data[i].staff_id+'</td>'+
                   '<td>'+
                     '<a href="javascript:;" class="btn btn-info item-edit" data="'+data[i].id+'">Edit</a>&nbsp;'+
                     '<a href="javascript:;" class="btn btn-danger item-delete disabled"  data="'+data[i].id+'">Delete</a>'+

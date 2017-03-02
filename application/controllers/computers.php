@@ -1,11 +1,11 @@
 <?php
 
- class Emails extends CI_Controller {
+ class Computers extends CI_Controller {
  
  		function __construct(){
 		parent:: __construct();
 		//load the model inside constructor
-		$this->load->model('email_model', 'e');
+		$this->load->model('computer_model', 'c');
 		$this->load->helper('url');
 
 	}
@@ -14,22 +14,21 @@
 	function index()
 	{
 		$this->load->view('layout/header');
-		$getStaff = $this->e->get_staff();
-		$this->load->view('email_view',['getStaff'=>$getStaff]);
+		$this->load->view('computer_view');
 		$this->load->view('layout/footer');
 
 	}
 
     //display all the staff
-    public function show_all_emails(){
-		$result = $this->e->show_all_emails();
+    public function show_all_computers(){
+		$result = $this->c->show_all_computers();
 		echo json_encode($result);
 	}
 
     //Add Employee
-    public function add_email()
+    public function add_computer()
     {
-		$result = $this->e->add_email();				
+		$result = $this->c->add_computer();				
 		$msg['success'] = false;
 		$msg['type'] = 'add';
 		if($result){
@@ -38,8 +37,8 @@
 		echo json_encode($msg);
 	}
 
-	public function update_email(){
-		$result = $this->e->update_email();
+	public function update_computer(){
+		$result = $this->c->update_computer();
 		$msg['success'] = false;
 		$msg['type'] = 'update';
 		if($result){
@@ -48,15 +47,10 @@
 		echo json_encode($msg);
 	}
 
-	public function edit_email(){
-		$result = $this->h->edit_staff();
-		echo json_encode($result);
-	}
-
 
 	//delete a staff member
-	public function delete_email(){
-		$result = $this->e->delete_email();
+	public function delete_computer(){
+		$result = $this->c->delete_computer();
 		$msg['success'] = false;
 		if($result){
 			$msg['success'] = true;

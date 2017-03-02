@@ -1,22 +1,5 @@
-<!-- Trying out a new layout-->
-<div class="container">
 
-  <br>
-
-<div class="btn-group btn-group-justified" role="group">
-  <div class="btn-group" role="group">
-    <a href="<?php echo base_url() ?>index.php/home/" class="btn btn-primary" role="button">Staff</a>
-  </div>
-  <div class="btn-group" role="group">
-    <a href="<?php echo base_url() ?>index.php/emails/" class="btn btn-primary" role="button">Emails</a>
-  </div>
-  <div class="btn-group" role="group">
-  <a href="<?php echo base_url() ?>index.php/department/" class="btn btn-primary" role="button">Departments</a>
-  </div>
-</div>
-
-
-  <h3>EMAILS</h3>
+<h3>EMAILS</h3>
   <div class="alert alert-success" style="display: none;">
     
   </div>
@@ -62,6 +45,17 @@
               <label for="name" class="label-control col-md-4">Password</label>
               <div class="col-md-8">
                 <input type="text" name="txtEmailPassword" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name" class="label-control col-md-4">Employee</label>
+              <div class="col-md-8">
+                <select class="selectpicker form-control" name="txtStaffDepartment">
+                <?php foreach ($getStaff as $staff): ?>
+                <option value=<?php echo $staff->id;?>> <?php echo $staff->firstname ?> <?php echo $staff->surname ?></option>
+              <?php endforeach; ?>
+                </select>
               </div>
             </div>
 
@@ -162,7 +156,7 @@ show_all_emails();
                 var type ="updated";
               }
               $('.alert-success').html('Email added successfully').fadeIn().delay(4000).fadeOut('slow');
-              show_all_staff();
+              show_all_emails();
             }
             else{
               alert('Error');
@@ -250,7 +244,7 @@ show_all_emails();
                   '<td>'+data[i].surname+'</td>'+
                   '<td>'+
                     '<a href="javascript:;" class="btn btn-info item-edit" data="'+data[i].id+'">Edit</a>&nbsp;'+
-                    '<a href="javascript:;" class="btn btn-danger item-delete"  data="'+data[i].id+'">Delete</a>'+
+                    '<a href="javascript:;" class="btn btn-danger item-delete disabled"  data="'+data[i].id+'">Delete</a>'+
                   '</td>'+
                   '</tr>';
           }

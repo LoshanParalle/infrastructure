@@ -38,3 +38,23 @@ $this->benchmark->mark('code_start');
   </form>
 	</div>
 </div>
+
+<!-- Trying out a new layout-->
+<div class="container">
+
+  <br>
+
+<div class="btn-group btn-group-justified" role="group">
+  <div class="btn-group" role="group">
+    <a href="<?php echo base_url() ?>index.php/home/" class="btn btn-primary" role="button">Staff</a>
+  </div>
+  <div class="btn-group" role="group">
+    <a href="<?php echo base_url() ?>index.php/emails/" class="btn btn-primary" role="button">Emails</a>
+  </div>
+  <div class="btn-group" role="group">
+  <a href="<?php echo base_url() ?>index.php/department/" class="btn btn-primary" role="button">Departments</a>
+  </div>
+  <div class="btn-group" role="group">
+  <a href="<?php echo base_url() ?>index.php/computers/" class="btn btn-primary" role="button">Computers</a>
+  </div>
+</div>

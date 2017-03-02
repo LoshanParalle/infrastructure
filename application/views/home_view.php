@@ -1,21 +1,5 @@
-<!-- Trying out a new layout-->
-<div class="container">
 
-  <br>
-
-<div class="btn-group btn-group-justified" role="group">
-  <div class="btn-group" role="group">
-    <a href="<?php echo base_url() ?>index.php/home/" class="btn btn-primary" role="button">Staff</a>
-  </div>
-  <div class="btn-group" role="group">
-    <a href="<?php echo base_url() ?>index.php/emails/" class="btn btn-primary" role="button">Emails</a>
-  </div>
-  <div class="btn-group" role="group">
-  <a href="<?php echo base_url() ?>index.php/department/" class="btn btn-primary" role="button">Departments</a>
-  </div>
-</div>
-
-  <h3>STAFF DETAILS</h3>
+<h3>STAFF DETAILS</h3>
   <div class="alert alert-success" style="display: none;">
     
   </div>
@@ -285,7 +269,7 @@ show_all_staff();
           $('input[name=txtStaffSurname]').val(data.surname);
           $('input[name=txtStaffStatus]').val(data.status);
           $('input[name=txtStaffGender]').val(data.gender);
-          $('input[name=txtStaffDepartment]').val(data.department);
+          $('input[name=txtStaffDepartment]').val(data.department_id);
           $('input[name=txtId]').val(data.id);
          // $('input[')
         },
@@ -349,7 +333,7 @@ show_all_staff();
                   '<td>'+data[i].department_id+'</td>'+
                   '<td>'+
                     '<a href="javascript:;" class="btn btn-info item-edit" data="'+data[i].id+'">Edit</a>&nbsp;'+
-                    '<a href="javascript:;" class="btn btn-danger item-delete"  data="'+data[i].id+'">Delete</a>'+
+                    '<a href="javascript:;" class="btn btn-danger item-delete disabled"  data="'+data[i].id+'">Delete</a>'+
                   '</td>'+
                   '</tr>';
           }
