@@ -45,7 +45,8 @@ class Home_model extends CI_Model {
 		'firstname'=>$this->input->post('txtStaffName'),
 		'surname'=>$this->input->post('txtStaffSurname'),
 		'status'=>$this->input->post('txtStaffStatus'),
-		'gender'=>$this->input->post('txtStaffGender')
+		'gender'=>$this->input->post('txtStaffGender'),
+		'department_id'=>$this->input->post('txtStaffDepartment')
 		);
 		$this->db->insert('opscomp.staff', $staff_field);
 	}
@@ -77,7 +78,8 @@ class Home_model extends CI_Model {
 		'firstname'=>$this->input->post('txtStaffName'),
 		'surname'=>$this->input->post('txtStaffSurname'),
 		'status'=>$this->input->post('txtStaffStatus'),
-		'gender'=>$this->input->post('txtStaffGender')
+		'gender'=>$this->input->post('txtStaffGender'),
+		'department_id'=>$this->input->post('txtStaffDepartment')
 		);
 		$this->db->where('id', $id);
 		$this->db->update('opscomp.staff', $field);
@@ -99,7 +101,15 @@ class Home_model extends CI_Model {
 			return false;
 		}
 	}
-	
+
+	public function get_departments()
+	{
+		$query = $this->db->get('opscomp.department');
+		if($query->num_rows() > 0)
+		{
+			 return $query->result();
+		}
+	}
 }
 
 /* End of file home.php */

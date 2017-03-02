@@ -14,7 +14,9 @@
 	function index()
 	{
 		$this->load->view('layout/header');
-		$this->load->view('home_view');
+		$getDepartments = $this->h->get_departments();
+		$getGender = $this->h->show_all_staff();
+		$this->load->view('home_view',['getDepartments'=>$getDepartments, 'getGender'=>$getGender]);
 		$this->load->view('layout/footer');
 
 	}

@@ -20,7 +20,7 @@
     
   </div>
   <button id="btnAdd" class="btn btn-success">Add New</button>
-  <table class="table table-bordered table-responsive" style="margin-top: 20px;">
+  <table class="table table-bordered table-responsive table-fixed" style="margin-top: 20px;">
     <thead>
     <tr>
         <td>#</td>
@@ -29,6 +29,7 @@
         <td>Last Name</td>
         <td>status</td>
         <td>gender</td>
+        <td>department</td>
         <td>Action</td> <!--Here i will add my update and delete buttons -->
       </tr>
     </thead>
@@ -86,13 +87,16 @@
                 <option value="m">Male</option>
                 <option value="f">Female</option>
                 </select>
+                </div>
+            </div>
 
             <div class="form-group">
               <label for="name" class="label-control col-md-4">Department</label>
               <div class="col-md-8">
                 <select class="selectpicker form-control" name="txtStaffDepartment">
-                <option value="m">Male</option>
-                <option value="f">Female</option>
+                <?php foreach ($getDepartments as $department): ?>
+                <option value=<?php echo $department->id;?>><?php echo $department->name;?></option>
+              <?php endforeach; ?>
                 </select>
 
               </div>
@@ -166,6 +170,7 @@ show_all_staff();
       var surname = $('input[name=txtStaffSurname]');
       var status = $('input[name=txtStaffStatus]');
       var gender = $('select[name=txtStaffGender]');
+      var department = $('select[name=txtStaffDepartment]');
       //var email = $('input[name=txtStaffEmail]');
       
       //create a checker
@@ -209,7 +214,15 @@ show_all_staff();
       }else{
         gender.parent().parent().removeClass('has-error');
         result +='5';
-      }     
+      }
+
+      //check the department for input
+      if(department.val()==''){
+        department.parent().parent().addClass('has-error');
+      }else{
+        department.parent().parent().removeClass('has-error');
+        result +='6';
+      }         
  
       //check the email for input
       // if(email.val()==''){
@@ -220,7 +233,7 @@ show_all_staff();
       // } 
       
       //setup alerts for success or failure upon inputs
-      if(result=='12345'){
+      if(result=='123456'){
         $.ajax({
           type: 'ajax',
           method: 'post',
@@ -272,6 +285,7 @@ show_all_staff();
           $('input[name=txtStaffSurname]').val(data.surname);
           $('input[name=txtStaffStatus]').val(data.status);
           $('input[name=txtStaffGender]').val(data.gender);
+          $('input[name=txtStaffDepartment]').val(data.department);
           $('input[name=txtId]').val(data.id);
          // $('input[')
         },
@@ -332,6 +346,7 @@ show_all_staff();
                   '<td>'+data[i].surname+'</td>'+
                   '<td>'+data[i].status+'</td>'+
                   '<td>'+data[i].gender+'</td>'+
+                  '<td>'+data[i].department_id+'</td>'+
                   '<td>'+
                     '<a href="javascript:;" class="btn btn-info item-edit" data="'+data[i].id+'">Edit</a>&nbsp;'+
                     '<a href="javascript:;" class="btn btn-danger item-delete"  data="'+data[i].id+'">Delete</a>'+
